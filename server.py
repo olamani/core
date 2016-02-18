@@ -10,7 +10,7 @@ try:
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     print 'Socket created'
 except socket.error, msg:
-    print 'Failed to crete socket. Error code: ' + str(msg[0]) + ' message ' + msg[1]
+    print 'Failed to create socket. Error code: ' + str(msg[0]) + ' message ' + msg[1]
     sys.exit()
 
 try:

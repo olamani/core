@@ -1,4 +1,9 @@
+TARGET=test
 CC=g++
-
-test: test.cpp src/Connection.cpp
-	$(CC) -o test test.cpp
+INC_DIR=include
+SRC_DIR=src
+OBJ_DIR=obj
+BIN_DIR=bin
+CFLAGS=-I.
+LINKER=$(CC) -o
+LFLAGS=-I. -lm

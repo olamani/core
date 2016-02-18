@@ -10,7 +10,7 @@ namespace olamani {
 struct Socket {
     int socketfd;
     struct sockaddr_in server;
-}
+};
 
 class Connection {
 public:
@@ -23,9 +23,9 @@ public:
 private:
     std::string host;
     int port;
-    Socket socket;
+    Socket sock;
     bool open;
-} // class Connection
+}; // class Connection
 
 } // namespace olamani
 

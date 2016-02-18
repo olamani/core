@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <iostream>
-#include "Connection.hpp"
+#include "include/Connection.hpp"
 
 namespace olamani {
 
@@ -23,8 +23,8 @@ bool Connection::connect() {
     struct sockaddr_in server_addr;
     struct hostent *host_0;
     struct in_addr *addr_ptr;
-    char* host = (this->host).c_str();
-    if (inet_addr(host) == INADDR_NONE) {
+    char* host;
+    if (inet_addr((this->host).c_str()) == INADDR_NONE) {
         host_0 = (struct hostent *) gethostbyname(host);
         if (host_0 == 0) {
             std::cerr << "Connection:connect -> can not get host" << std::endl;

@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Connection.hpp"
 
-namespace olamani {
+namespace Olamani {
 
 Connection::Connection(std::string host, int port) {
     this->host = host;

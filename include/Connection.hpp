@@ -5,7 +5,7 @@
 #include <arpa/inet.h>
 #include <string>
 
-namespace olamani {
+namespace Olamani {
 
 struct Socket {
     int socketfd;
@@ -27,6 +27,6 @@ private:
     bool open;
 }; // class Connection
 
-} // namespace olamani
+} // namespace Olamani
 
 #endif // CONNECTION_HPP

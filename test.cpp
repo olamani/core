@@ -1,17 +1,20 @@
 #include <iostream>
+#include <thread>
+#include <chrono>
 #include "Connection.hpp"
+#include "Parser.hpp"
 
 int main() {
-    olamani::Connection connection("127.0.0.1", 8888);
+    Olamani::Connection connection("localhost", 8888);
     if (connection.connect()) {
-        if (connection.send("Hello world!")) {
-            std::cout << connection.receive() << std::endl;
-        } else {
-            std::cerr << "main -> Error sending" << std::endl;
+        Olamani::Parser::setConnection(&connection);
+        Olamani::Parser::start();
+        for (int i = 0; i < 10; ++i) {
+            connection.send("Ping");
+            std::this_thread::sleep_for(std::chrono::seconds(1));
         }
+        Olamani::Parser::stop();
         connection.disconnect();
-    } else {
-        std::cerr << "main -> Error connecting to server" << std::endl;
     }
-    return 0;
+
 }

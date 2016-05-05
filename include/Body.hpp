@@ -115,6 +115,10 @@ int         turnNeckCount(unsigned int time = 0);
 std::string viewModeQuality(unsigned int time = 0);
 std::string viewModeWidth(unsigned int time = 0);
 
+void handleParametersMessage(std::string message);
+void handlePlayerTypeMessage(std::string message);
+void handleBodyMessage(std::string message);
+
 } // namespace Body
 
 } // namespace Olamani

@@ -1,20 +1,7 @@
 #include <iostream>
-#include <thread>
-#include <chrono>
-#include "Connection.hpp"
-#include "Parser.hpp"
+#include "DSL.hpp"
 
 int main() {
-    Olamani::Connection connection("localhost", 8888);
-    if (connection.connect()) {
-        Olamani::Parser::setConnection(&connection);
-        Olamani::Parser::start();
-        for (int i = 0; i < 10; ++i) {
-            connection.send("Ping");
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-        }
-        Olamani::Parser::stop();
-        connection.disconnect();
-    }
-
+    std::cout << Olamani::DSL::getIntParameter("value", "(value 10)") << std::endl;
+    return 0;
 }

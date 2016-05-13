@@ -9,11 +9,11 @@ namespace DSL {
 
 int getIntParameter(std::string message, std::string parameter, int _default);
 
-/*double getDoubleParameter(std::string parameter, std::string message);
+double getDoubleParameter(std::string message, std::string parameter, double _default);
 
-bool getBoolParameter(std::string parameter, std::string message);
+bool getBoolParameter(std::string message, std::string parameter, bool _default);
 
-std::string getStringParamenter(std::string parameter, std::string message);*/
+std::string getStringParamenter(std::string message, std::string parameter, std::string _default);
 
 } // namespace DSL
 

@@ -1,3 +1,4 @@
+#include <vector>
 #include <boost/circular_buffer.hpp>
 #include "Body.hpp"
 #define BUFFER 8
@@ -225,7 +226,92 @@ std::string viewModeWidth(unsigned int time) {
     return (time < BUFFER ? viewModeWidthBuffer[time] : "");
 }
 
-void handleBodyMessage(std::string message);
+void handleParametersMessage(std::string message) {
+    ALLOW_MULT_DEFAULT_TYPE = getBoolParameter(message, "allow_mult_default_type", false);
+    CATCHABLE_AREA_L_STRECH_MAX = getDoubleParameter(message, "catchable_area_l_stretch_max", 0.0);
+    CATCHABLE_AREA_L_STRECH_MIN = getDoubleParameter(message, "catchable_area_l_stretch_min", 0.0);
+    DASH_POWER_RATE_DELTA_MAX = getDoubleParameter(message, "dash_power_rate_delta_max", 0.0);
+    DASH_POWER_RATE_DELTA_MIN = getDoubleParameter(message, "dash_power_rate_delta_min", 0.0);
+    EFFORT_MAX_DELTA_FACTOR = getDoubleParameter(message, "effort_max_delta_factor", 0.0);
+    EFFORT_MIN_DELTA_FACTOR = getDoubleParameter(message, "effort_min_delta_factor", 0.0);
+    EXTRA_STAMINA_DELTA_MAX = getDoubleParameter(message, "extra_stamina_delta_max", 0.0);
+    EXTRA_STAMINA_DELTA_MIN = getDoubleParameter(message, "extra_stamina_delta_min", 0.0);
+    FOUL_DETECT_PROBABILITY_DELTA_FACTOR = getDoubleParameter(message, "foul_detect_probability_delta_factor", 0.0);
+    INERTIA_MOMENT_DELTA_FACTOR = getDoubleParameter(message, "inertia_moment_delta_factor", 0.0);
+    KICK_POWER_RATE_DELTA_MAX = getDoubleParameter(message, "kick_power_rate_delta_max", 0.0);
+    KICK_POWER_RATE_DELTA_MIN = getDoubleParameter(message, "kick_power_rate_delta_min", 0.0);
+    KICK_RAND_DELTA_FACTOR = getDoubleParameter(message, "kick_rand_delta_factor", 0.0);
+    KICKABLE_MARGIN_DELTA_MAX = getDoubleParameter(message, "kickable_margin_delta_max", 0.0);
+    KICKABLE_MARGIN_DELTA_MIN = getDoubleParameter(message, "kickable_margin_delta_min", 0.0);
+    NEW_DASH_POWER_RATE_DELTA_MAX = getDoubleParameter(message, "new_dash_power_rate_delta_max", 0.0);
+    NEW_DASH_POWER_RATE_DELTA_MIN = getDoubleParameter(message, "new_dash_power_rate_delta_min", 0.0);
+    NEW_STAMINA_INC_MAX_DELTA_FACTOR = getDoubleParameter(message, "new_stamina_inc_max_delta_factor", 0.0);
+    PLAYER_DECAY_DELTA_MAX = getDoubleParameter(message, "player_decay_delta_max", 0.0);
+    PLAYER_DECAY_DELTA_MIN = getDoubleParameter(message, "player_decay_delta_min", 0.0);
+    PLAYER_SIZE_DELTA_FACTOR = getDoubleParameter(message, "player_size_delta_factor", 0.0);
+    PLAYER_SPEED_MAX_DELTA_MAX = getDoubleParameter(message, "player_speed_max_delta_max", 0.0);
+    PLAYER_SPEED_MAX_DELTA_MIN = getDoubleParameter(message, "player_speed_max_delta_min", 0.0);
+    PLAYER_TYPES = getIntParameter(message, "player_types", 0);
+    PT_MAX = getIntParameter(message, "pt_max", 0);
+    RANDOM_SEED = getIntParameter(message, "random_seed", 0);
+    STAMINA_INC_MAX_DELTA_FACTOR = getDoubleParameter(message, "stamina_inc_max_delta_factor", 0.0);
+    SUBS_MAX = getIntParameter(message, "subs_max", 0);
+}
+
+std::vector<double> catchableAreaLStretch;
+std::vector<double> dashPowerRate;
+std::vector<double> effortMax;
+std::vector<double> effortMin;
+std::vector<double> extraStamina;
+std::vector<double> foulDetectProbability;
+std::vector<double> inertiaMoment;
+std::vector<double> kickPowerRate;
+std::vector<double> kickRand;
+std::vector<double> kickableMargin;
+std::vector<double> playerDecay;
+std::vector<double> playerSize;
+std::vector<double> playerSpeedMax;
+std::vector<double> staminaIncMax;
+
+void handlePlayerTypeMessage(std::string message) {
+    catchableAreaLStretch.push_back(getDoubleParameter(message, "catchable_area_l_stretch", 0.0));
+    dashPowerRate.push_back(getDoubleParameter(message, "dash_power_rate", 0.0));
+    effortMax.push_back(getDoubleParameter(message, "effort_max", 0.0));
+    effortMin.push_back(getDoubleParameter(message, "effort_min", 0.0));
+    extraStamina.push_back(getDoubleParameter(message, "extra_stamina", 0.0));
+    foulDetectProbability.push_back(getDoubleParameter(message, "foul_detect_probability", 0.0));
+    inertiaMoment.push_back(getDoubleParameter(message, "inertia_moment", 0.0));
+    kickPowerRate.push_back(getDoubleParameter(message, "kick_power_rate", 0.0));
+    kickRand.push_back(getDoubleParameter(message, "kick_rand", 0.0));
+    kickableMargin.push_back(getDoubleParameter(message, "kickable_margin", 0.0));
+    playerDecay.push_back(getDoubleParameter(message, "player_decay", 0.0));
+    playerSize.push_back(getDoubleParameter(message, "player_size"));
+    playerSpeedMax.push_back(getDoubleParameter(message, "player_speed_max", 0.0));
+    staminaIncMax.push_back(getDoubleParameter("stamina_inc_max", 0.0));
+}
+
+void changePlayerType(int type) {
+    if (type < PLAYER_TYPES) {
+        CATCHABLE_AREA_L_STRETCH = catchableAreaLStretch[type];
+        DASH_POWER_RATE = dashPowerRate[type];
+        EFFORT_MAX = effortMax[type];
+        EFFORT_MIN = effortMin[type];
+        EXTRA_STAMINA = extraStamina[type];
+        FOUL_DETECT_PROBABILITY = foulDetectProbability[type];
+        INERTIA_MOMENT = inertiaMoment[type];
+        KICK_POWER_RATE = kickPowerRate[type];
+        KICK_RAND = kickRand[type];
+        KICKABLE_MARGIN = kickableMargin[type];
+        PLAYER_DECAY = playerDecay[type];
+        PLAYER_SIZE = playerSize[type];
+        PLAYER_SPEED_MAX = playerSpeedMax[type];
+        STAMINA_INC_MAX = staminaIncMax[type];
+    }
+}
+
+void handleBodyMessage(std::string message) {
+    
+}
 
 } // namespace Body
 

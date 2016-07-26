@@ -1,10 +1,10 @@
-TARGET=test
+TARGET=core
 CC=clang++
 CSTD=c++11
 CSTDLIB=libc++
 CFLAGS=-I./include
 
-test: test.cpp \
+core: main.cpp \
 	src/Body.cpp include/Body.hpp \
 	src/Configs.cpp include/Configs.hpp \
 	src/Connection.cpp include/Connection.hpp \
@@ -13,3 +13,6 @@ test: test.cpp \
 	src/Parser.cpp include/Parser.hpp \
 	src/Server.cpp include/Server.hpp
 	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o $(TARGET) test.cpp src/DSL.cpp $(CFLAGS)
+
+testDSL: src/DSL.cpp test/DSLTest.cpp include/DSL.hpp
+	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o testDSL test/DSLTest.cpp src/DSL.cpp $(CFLAGS)

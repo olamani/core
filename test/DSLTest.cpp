@@ -1,6 +1,5 @@
-#define BOOST_TEST_MODULE My Test
+#define BOOST_TEST_MODULE Olamani Test
 #include <boost/test/included/unit_test.hpp>
-#include <iostream>
 #include "DSL.hpp"
 
 BOOST_AUTO_TEST_CASE(regex_prepare_int) {
@@ -58,9 +57,9 @@ BOOST_AUTO_TEST_CASE(get_int_parameter_default) {
 }
 
 BOOST_AUTO_TEST_CASE(get_double_parameter) {
-	std::string message = "(message (parameter 1))";
+	std::string message = "(message (parameter 10)(other 2))";
 	double found = Olamani::DSL::getDoubleParameter(message, "parameter", 0.0);
-	BOOST_CHECK_CLOSE(1.0, found, 0.01);
+	BOOST_CHECK_CLOSE(10.0, found, 0.01);
 }
 
 BOOST_AUTO_TEST_CASE(get_double_parameter_default) {

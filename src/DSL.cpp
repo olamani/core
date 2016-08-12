@@ -4,6 +4,7 @@
 #include <sstream>
 #include <cctype>
 #include <unordered_map>
+#include <iostream>
 
 namespace Olamani {
 
@@ -107,7 +108,7 @@ int getIntParameter(std::string message, std::string parameter, int _default) {
 
 double getDoubleParameter(std::string message, std::string parameter, double _default) {
     std::smatch match;
-    if (std::regex_search(message, match, std::regex("\\(" + parameter + "\\s+([\\d\\.\\-e])\\)"))) {
+    if (std::regex_search(message, match, std::regex("\\(" + parameter + "\\s+([\\d\\.\\-e]+)\\)"))) {
         return std::stof(match[1]);
     }
     return _default;

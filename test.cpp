@@ -1,9 +1,17 @@
 #include <iostream>
-#include "DSL.hpp"
+#include "Connection.hpp"
 
 int main() {
-    std::cout << Olamani::DSL::getIntParameter("(value 10)", "value", 0) << std::endl;
-    std::cout << Olamani::DSL::getDoubleParameter("(value 9.9)", "value", 0.0) << std::endl;
-    std::cout << Olamani::DSL::getStringParamenter("(value hello)", "value", "not found") << std::endl;
+	Olamani::Connection connection("localhost", 6000);
+	if (connection.connect()) {
+		connection.send("(init olamani (version 15.1))");
+		for (int i = 0; i < 100; i++) {
+			std::cout << connection.receive() << std::endl;
+		}
+		connection.send("(bye)");
+		connection.disconnect();
+	} else {
+		std::cerr << "Error connecting" << std::endl;
+	}
     return 0;
 }

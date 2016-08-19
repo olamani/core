@@ -100,7 +100,7 @@ std::string getSenseBodyRegex() {
 
 int getIntParameter(std::string message, std::string parameter, int _default) {
     std::smatch match;
-    if (std::regex_search(message, match, std::regex("\\(" + parameter + "\\s+(\\d+)\\)"))) {
+    if (std::regex_search(message, match, std::regex("\\(" + parameter + "\\s+([\\d\\-]+)\\)"))) {
         return std::stoi(match[1]);
     }
     return _default;
@@ -120,7 +120,7 @@ bool getBoolParameter(std::string message, std::string parameter, bool _default)
 
 std::string getStringParameter(std::string message, std::string parameter, std::string _default) {
     std::smatch match;
-    if (std::regex_search(message, match, std::regex("\\(" + parameter + "\\s+(\\w+)\\)"))) {
+    if (std::regex_search(message, match, std::regex("\\(" + parameter + "\\s+\"([\\w\\.\\-~%/]+)\"\\)"))) {
         return match[1];
     }
     return _default;

@@ -50,6 +50,12 @@ BOOST_AUTO_TEST_CASE(get_int_parameter) {
 	BOOST_CHECK_EQUAL(1, found);
 }
 
+BOOST_AUTO_TEST_CASE(get_int_parameter_negative) {
+	std::string message = "(message (parameter -1))";
+	int found = Olamani::DSL::getIntParameter(message, "parameter", 0);
+	BOOST_CHECK_EQUAL(-1, found);
+}
+
 BOOST_AUTO_TEST_CASE(get_int_parameter_default) {
 	std::string message = "(message (other 1))";
 	int found = Olamani::DSL::getIntParameter(message, "parameter", 0);
@@ -69,13 +75,19 @@ BOOST_AUTO_TEST_CASE(get_double_parameter_default) {
 }
 
 BOOST_AUTO_TEST_CASE(get_string_parameter) {
-	std::string message = "(message (parameter string))";
+	std::string message = "(message (parameter \"string\"))";
 	std::string found = Olamani::DSL::getStringParameter(message, "parameter", "default");
 	BOOST_CHECK_EQUAL(found, "string");
 }
 
+BOOST_AUTO_TEST_CASE(get_string_parameter_signs) {
+	std::string message = "(message (parameter \".-/%~\"))";
+	std::string found = Olamani::DSL::getStringParameter(message, "parameter", "default");
+	BOOST_CHECK_EQUAL(found, ".-/%~");
+}
+
 BOOST_AUTO_TEST_CASE(get_string_parameter_default) {
-	std::string message = "(message (other string))";
+	std::string message = "(message (other \"string\"))";
 	std::string found = Olamani::DSL::getStringParameter(message, "parameter", "default");
 	BOOST_CHECK_EQUAL(found, "default");
 }

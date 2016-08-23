@@ -2,6 +2,8 @@
 #include <boost/test/included/unit_test.hpp>
 #include "Server.hpp"
 
+const double TOLERANCE = 0.01;
+
 std::string server_params = "(server_param "
 	"(audio_cut_dist 50)"
 	"(auto_mode 0)"
@@ -143,26 +145,73 @@ std::string server_params = "(server_param "
 	"(recover_min 0.5)"
 	"(recv_step 10)"
 	"(red_card_probability 0)"
-	"(say_coach_cnt_max 128)(say_coach_msg_size 128)(say_msg_size 10)(send_comms 0)(send_step 150)(send_vi_step 100)(sense_body_step 100)(side_dash_rate 0.4)(simulator_step 100)(slow_down_factor 1)(slowness_on_top_for_left_team 1)(slowness_on_top_for_right_team 1)(stamina_capacity 130600)(stamina_inc_max 45)(stamina_max 8000)(start_goal_l 0)(start_goal_r 0)(stopped_ball_vel 0.01)(synch_micro_sleep 1)(synch_mode 0)(synch_offset 60)(synch_see_offset 0)(tackle_back_dist 0)(tackle_cycles 10)(tackle_dist 2)(tackle_exponent 6)(tackle_power_rate 0.027)(tackle_rand_factor 2)(tackle_width 1.25)(team_actuator_noise 0)(team_l_start \"\")(team_r_start \"\")(text_log_compression 0)(text_log_dated 1)(text_log_dir \"./\")(text_log_fixed 0)(text_log_fixed_name \"rcssserver\")(text_logging 1)(use_offside 1)(verbose 0)(visible_angle 90)(visible_distance 3)(wind_ang 0)(wind_dir 0)(wind_force 0)(wind_none 0)(wind_rand 0)(wind_random 0))";
+	"(say_coach_cnt_max 128)"
+	"(say_coach_msg_size 128)"
+	"(say_msg_size 10)"
+	"(send_comms 0)"
+	"(send_step 150)"
+	"(send_vi_step 100)"
+	"(sense_body_step 100)"
+	"(side_dash_rate 0.4)"
+	"(simulator_step 100)"
+	"(slow_down_factor 1)"
+	"(slowness_on_top_for_left_team 1)"
+	"(slowness_on_top_for_right_team 1)"
+	"(stamina_capacity 130600)"
+	"(stamina_inc_max 45)"
+	"(stamina_max 8000)"
+	"(start_goal_l 0)"
+	"(start_goal_r 0)"
+	"(stopped_ball_vel 0.01)"
+	"(synch_micro_sleep 1)"
+	"(synch_mode 0)"
+	"(synch_offset 60)"
+	"(synch_see_offset 0)"
+	"(tackle_back_dist 0)"
+	"(tackle_cycles 10)"
+	"(tackle_dist 2)"
+	"(tackle_exponent 6)"
+	"(tackle_power_rate 0.027)"
+	"(tackle_rand_factor 2)"
+	"(tackle_width 1.25)"
+	"(team_actuator_noise 0)"
+	"(team_l_start \"\")"
+	"(team_r_start \"\")"
+	"(text_log_compression 0)"
+	"(text_log_dated 1)"
+	"(text_log_dir \"./\")"
+	"(text_log_fixed 0)"
+	"(text_log_fixed_name \"rcssserver\")"
+	"(text_logging 1)"
+	"(use_offside 1)"
+	"(verbose 0)"
+	"(visible_angle 90)"
+	"(visible_distance 3)"
+	"(wind_ang 0)"
+	"(wind_dir 0)"
+	"(wind_force 0)"
+	"(wind_none 0)"
+	"(wind_rand 0)"
+	"(wind_random 0))";
 
 BOOST_AUTO_TEST_CASE(parse_server_params) {
 	Olamani::Server::handleServerParameters(server_params);
-	BOOST_CHECK_CLOSE(50.0, Olamani::Server::AUDIO_CUT_DIST, 0.01);
+	BOOST_CHECK_CLOSE(50.0, Olamani::Server::AUDIO_CUT_DIST, TOLERANCE);
 	BOOST_CHECK_EQUAL(false, Olamani::Server::AUTO_MODE);
-	BOOST_CHECK_CLOSE(0.6, Olamani::Server::BACK_DASH_RATE, 0.01);
+	BOOST_CHECK_CLOSE(0.6, Olamani::Server::BACK_DASH_RATE, TOLERANCE);
 	BOOST_CHECK_EQUAL(1, Olamani::Server::BACK_PASSES);
-	BOOST_CHECK_CLOSE(2.7, Olamani::Server::BALL_ACCEL_MAX, 0.01);
-	BOOST_CHECK_CLOSE(0.94, Olamani::Server::BALL_DECAY, 0.01);
-	BOOST_CHECK_CLOSE(0.05, Olamani::Server::BALL_RAND, 0.01);
-	BOOST_CHECK_CLOSE(0.085, Olamani::Server::BALL_SIZE, 0.01);
-	BOOST_CHECK_CLOSE(3.0, Olamani::Server::BALL_SPEED_MAX, 0.01);
-	BOOST_CHECK_CLOSE(3.0, Olamani::Server::BALL_STUCK_AREA, 0.01);
-	BOOST_CHECK_CLOSE(0.2, Olamani::Server::BALL_WEIGHT, 0.01);
+	BOOST_CHECK_CLOSE(2.7, Olamani::Server::BALL_ACCEL_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.94, Olamani::Server::BALL_DECAY, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.05, Olamani::Server::BALL_RAND, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.085, Olamani::Server::BALL_SIZE, TOLERANCE);
+	BOOST_CHECK_CLOSE(3.0, Olamani::Server::BALL_SPEED_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(3.0, Olamani::Server::BALL_STUCK_AREA, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.2, Olamani::Server::BALL_WEIGHT, TOLERANCE);
 	BOOST_CHECK_EQUAL(5, Olamani::Server::CATCH_BAN_CYCLE);
-	BOOST_CHECK_CLOSE(1.0, Olamani::Server::CATCH_PROBABILITY, 0.01);
-	BOOST_CHECK_CLOSE(1.2, Olamani::Server::CATCHABLE_AREA_L, 0.01);
-	BOOST_CHECK_CLOSE(1.0, Olamani::Server::CATCHABLE_AREA_W, 0.01);
-	BOOST_CHECK_CLOSE(1.0, Olamani::Server::CKICK_MARGIN, 0.01);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::CATCH_PROBABILITY, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.2, Olamani::Server::CATCHABLE_AREA_L, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::CATCHABLE_AREA_W, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::CKICK_MARGIN, TOLERANCE);
 	BOOST_CHECK_EQUAL(1, Olamani::Server::CLANG_ADVICE_WIN);
 	BOOST_CHECK_EQUAL(1, Olamani::Server::CLANG_DEFINE_WIN);
 	BOOST_CHECK_EQUAL(1, Olamani::Server::CLANG_DEL_WIN);
@@ -176,21 +225,21 @@ BOOST_AUTO_TEST_CASE(parse_server_params) {
 	BOOST_CHECK_EQUAL(6001, Olamani::Server::COACH_PORT);
 	BOOST_CHECK_EQUAL(false, Olamani::Server::COACH_W_REFEREE);
 	BOOST_CHECK_EQUAL(300, Olamani::Server::CONNECT_WAIT);
-	BOOST_CHECK_CLOSE(2.0, Olamani::Server::CONTROL_RADIUS, 0.01);
-	BOOST_CHECK_CLOSE(45, Olamani::Server::DASH_ANGLE_STEP, 0.01);
-	BOOST_CHECK_CLOSE(0.006, Olamani::Server::DASH_POWER_RATE, 0.001);
+	BOOST_CHECK_CLOSE(2.0, Olamani::Server::CONTROL_RADIUS, TOLERANCE);
+	BOOST_CHECK_CLOSE(45, Olamani::Server::DASH_ANGLE_STEP, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.006, Olamani::Server::DASH_POWER_RATE, TOLERANCE);
 	BOOST_CHECK_EQUAL(100, Olamani::Server::DROP_BALL_TIME);
-	BOOST_CHECK_CLOSE(0.005, Olamani::Server::EFFORT_DEC, 0.001);
-	BOOST_CHECK_CLOSE(0.3, Olamani::Server::EFFORT_DEC_THR, 0.01);
-	BOOST_CHECK_CLOSE(0.01, Olamani::Server::EFFORT_INC, 0.001);
-	BOOST_CHECK_CLOSE(0.6, Olamani::Server::EFFORT_INC_THR, 0.01);
-	BOOST_CHECK_CLOSE(1.0, Olamani::Server::EFFORT_INIT, 0.01);
-	BOOST_CHECK_CLOSE(0.6, Olamani::Server::EFFORT_MIN, 0.01);
+	BOOST_CHECK_CLOSE(0.005, Olamani::Server::EFFORT_DEC, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.3, Olamani::Server::EFFORT_DEC_THR, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.01, Olamani::Server::EFFORT_INC, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.6, Olamani::Server::EFFORT_INC_THR, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::EFFORT_INIT, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.6, Olamani::Server::EFFORT_MIN, TOLERANCE);
 	BOOST_CHECK_EQUAL(100, Olamani::Server::EXTRA_HALF_TIME);
-	BOOST_CHECK_CLOSE(50.0, Olamani::Server::EXTRA_STAMINA, 0.01);
+	BOOST_CHECK_CLOSE(50.0, Olamani::Server::EXTRA_STAMINA, TOLERANCE);
 	BOOST_CHECK_EQUAL(true, Olamani::Server::FORBID_KICK_OFF_OFFSIDE);
 	BOOST_CHECK_EQUAL(5, Olamani::Server::FOUL_CYCLES);
-	BOOST_CHECK_CLOSE(0.5, Olamani::Server::FOUL_DETECT_PROBABILITY, 0.01);
+	BOOST_CHECK_CLOSE(0.5, Olamani::Server::FOUL_DETECT_PROBABILITY, TOLERANCE);
 	BOOST_CHECK_EQUAL(10, Olamani::Server::FOUL_EXPONENT);
 	BOOST_CHECK_EQUAL(1, Olamani::Server::FREE_KICK_FAULTS);
 	BOOST_CHECK_EQUAL(20, Olamani::Server::FREEFORM_SEND_PERIOD);
@@ -205,14 +254,14 @@ BOOST_AUTO_TEST_CASE(parse_server_params) {
 	BOOST_CHECK_EQUAL(5, Olamani::Server::GAME_LOG_VERSION);
 	BOOST_CHECK_EQUAL(true, Olamani::Server::GAME_LOGGING);
 	BOOST_CHECK_EQUAL(100, Olamani::Server::GAME_OVER_WAIT);
-	BOOST_CHECK_CLOSE(14.02, Olamani::Server::GOAL_WIDTH, 0.001);
+	BOOST_CHECK_CLOSE(14.02, Olamani::Server::GOAL_WIDTH, TOLERANCE);
 	BOOST_CHECK_EQUAL(2, Olamani::Server::GOALIE_MAX_MOVES);
 	BOOST_CHECK_EQUAL(false, Olamani::Server::GOLDEN_GOAL);
 	BOOST_CHECK_EQUAL(300, Olamani::Server::HALF_TIME);
 	BOOST_CHECK_EQUAL(1, Olamani::Server::HEAR_DECAY);
 	BOOST_CHECK_EQUAL(1, Olamani::Server::HEAR_INC);
 	BOOST_CHECK_EQUAL(1, Olamani::Server::HEAR_MAX);
-	BOOST_CHECK_CLOSE(5.0, Olamani::Server::INERTIA_MOMENT, 0.01);
+	BOOST_CHECK_CLOSE(5.0, Olamani::Server::INERTIA_MOMENT, TOLERANCE);
 	BOOST_CHECK_EQUAL(false, Olamani::Server::KEEPAWAY);
 	BOOST_CHECK_EQUAL(20, Olamani::Server::KEEPAWAY_LENGTH);
 	BOOST_CHECK_EQUAL(true, Olamani::Server::KEEPAWAY_LOG_DATED);
@@ -223,69 +272,116 @@ BOOST_AUTO_TEST_CASE(parse_server_params) {
 	BOOST_CHECK_EQUAL(-1, Olamani::Server::KEEPAWAY_START);
 	BOOST_CHECK_EQUAL(20, Olamani::Server::KEEPAWAY_WIDTH);
 	BOOST_CHECK_EQUAL(100, Olamani::Server::KICK_OFF_WAIT);
-	BOOST_CHECK_CLOSE(0.027, Olamani::Server::KICK_POWER_RATE, 0.001);
-	BOOST_CHECK_CLOSE(0.1, Olamani::Server::KICK_RAND, 0.01);
-	BOOST_CHECK_CLOSE(1.0, Olamani::Server::KICK_RAND_FACTOR_L, 0.01);
-	BOOST_CHECK_CLOSE(1.0, Olamani::Server::KICK_RAND_FACTOR_R, 0.01);
-	BOOST_CHECK_CLOSE(0.7, Olamani::Server::KICKABLE_MARGIN, 0.01);
+	BOOST_CHECK_CLOSE(0.027, Olamani::Server::KICK_POWER_RATE, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.1, Olamani::Server::KICK_RAND, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::KICK_RAND_FACTOR_L, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::KICK_RAND_FACTOR_R, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.7, Olamani::Server::KICKABLE_MARGIN, TOLERANCE);
 	BOOST_CHECK_EQUAL("~/.rcssserver-landmark.xml", Olamani::Server::LANDMARK_FILE);
 	BOOST_CHECK_EQUAL("%Y%m%d%H%M%S-", Olamani::Server::LOG_DATE_FORMAT);
 	BOOST_CHECK_EQUAL(false, Olamani::Server::LOG_TIMES);
-	BOOST_CHECK_CLOSE(0.0, Olamani::Server::MAX_BACK_TACKLE_POWER, 0.01);
-	BOOST_CHECK_CLOSE(180.0, Olamani::Server::MAX_DASH_ANGLE, 0.01);
-	BOOST_CHECK_CLOSE(100.0, Olamani::Server::MAX_DASH_POWER, 0.01);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Server::MAX_BACK_TACKLE_POWER, TOLERANCE);
+	BOOST_CHECK_CLOSE(180.0, Olamani::Server::MAX_DASH_ANGLE, TOLERANCE);
+	BOOST_CHECK_CLOSE(100.0, Olamani::Server::MAX_DASH_POWER, TOLERANCE);
 	BOOST_CHECK_EQUAL(3, Olamani::Server::MAX_GOAL_KICKS);
-	BOOST_CHECK_CLOSE(100.0, Olamani::Server::MAX_TACKLE_POWER, 0.01);
-	BOOST_CHECK_CLOSE(180.0, Olamani::Server::MAXMOMENT, 0.01);
-	BOOST_CHECK_CLOSE(90.0, Olamani::Server::MAXNECKANG, 0.01);
-	BOOST_CHECK_CLOSE(180.0, Olamani::Server::MAXNECKMOMENT, 0.01);
-	BOOST_CHECK_CLOSE(100.0, Olamani::Server::MAXPOWER, 0.01);
-	BOOST_CHECK_CLOSE(-180.0, Olamani::Server::MIN_DASH_ANGLE, 0.01);
-	BOOST_CHECK_CLOSE(-100.0, Olamani::Server::MIN_DASH_POWER, 0.01);
-	BOOST_CHECK_CLOSE(-180.0, Olamani::Server::MINMOMENT, 0.01);
-	BOOST_CHECK_CLOSE(-90.0, Olamani::Server::MINNECKANG, 0.01);
-	BOOST_CHECK_CLOSE(-180.0, Olamani::Server::MINNECKMOMENT, 0.01);
-	BOOST_CHECK_CLOSE(-100.0, Olamani::Server::MINPOWER, 0.01);
+	BOOST_CHECK_CLOSE(100.0, Olamani::Server::MAX_TACKLE_POWER, TOLERANCE);
+	BOOST_CHECK_CLOSE(180.0, Olamani::Server::MAXMOMENT, TOLERANCE);
+	BOOST_CHECK_CLOSE(90.0, Olamani::Server::MAXNECKANG, TOLERANCE);
+	BOOST_CHECK_CLOSE(180.0, Olamani::Server::MAXNECKMOMENT, TOLERANCE);
+	BOOST_CHECK_CLOSE(100.0, Olamani::Server::MAXPOWER, TOLERANCE);
+	BOOST_CHECK_CLOSE(-180.0, Olamani::Server::MIN_DASH_ANGLE, TOLERANCE);
+	BOOST_CHECK_CLOSE(-100.0, Olamani::Server::MIN_DASH_POWER, TOLERANCE);
+	BOOST_CHECK_CLOSE(-180.0, Olamani::Server::MINMOMENT, TOLERANCE);
+	BOOST_CHECK_CLOSE(-90.0, Olamani::Server::MINNECKANG, TOLERANCE);
+	BOOST_CHECK_CLOSE(-180.0, Olamani::Server::MINNECKMOMENT, TOLERANCE);
+	BOOST_CHECK_CLOSE(-100.0, Olamani::Server::MINPOWER, TOLERANCE);
 	BOOST_CHECK_EQUAL(2, Olamani::Server::NR_EXTRA_HALFS);
 	BOOST_CHECK_EQUAL(2, Olamani::Server::NR_NORMAL_HALFS);
-	BOOST_CHECK_CLOSE(2.5, Olamani::Server::OFFSIDE_ACTIVE_AREA_SIZE, 0.01);
-	BOOST_CHECK_CLOSE(9.15, Olamani::Server::OFFSIDE_KICK_MARGIN, 0.01);
+	BOOST_CHECK_CLOSE(2.5, Olamani::Server::OFFSIDE_ACTIVE_AREA_SIZE, TOLERANCE);
+	BOOST_CHECK_CLOSE(9.15, Olamani::Server::OFFSIDE_KICK_MARGIN, TOLERANCE);
 	BOOST_CHECK_EQUAL(6002, Olamani::Server::OLCOACH_PORT);
 	BOOST_CHECK_EQUAL(0, Olamani::Server::OLD_COACH_HEAR);
 	BOOST_CHECK_EQUAL(true, Olamani::Server::PEN_ALLOW_MULT_KICKS);
 	BOOST_CHECK_EQUAL(10, Olamani::Server::PEN_BEFORE_SETUP_WAIT);
 	BOOST_CHECK_EQUAL(1, Olamani::Server::PEN_COACH_MOVES_PLAYERS);
-	BOOST_CHECK_CLOSE(42.5, Olamani::Server::PEN_DIST_X, 0.01);
+	BOOST_CHECK_CLOSE(42.5, Olamani::Server::PEN_DIST_X, TOLERANCE);
 	BOOST_CHECK_EQUAL(5, Olamani::Server::PEN_MAX_EXTRA_KICKS);
-	BOOST_CHECK_CLOSE(14.0, Olamani::Server::PEN_MAX_GOALIE_DIST_X, 0.01);
+	BOOST_CHECK_CLOSE(14.0, Olamani::Server::PEN_MAX_GOALIE_DIST_X, TOLERANCE);
 	BOOST_CHECK_EQUAL(5, Olamani::Server::PEN_NR_KICKS);
-	BOOST_CHECK_CLOSE(0.0, Olamani::Server::PEN_RANDOM_WINNER, 0.01);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Server::PEN_RANDOM_WINNER, TOLERANCE);
 	BOOST_CHECK_EQUAL(10, Olamani::Server::PEN_READY_WAIT);
 	BOOST_CHECK_EQUAL(70, Olamani::Server::PEN_SETUP_WAIT);
 	BOOST_CHECK_EQUAL(150, Olamani::Server::PEN_TAKEN_WAIT);
 	BOOST_CHECK_EQUAL(1, Olamani::Server::PENALTY_SHOOT_OUTS);
-	BOOST_CHECK_CLOSE(1.0, Olamani::Server::PLAYER_ACCEL_MAX, 0.01);
-	BOOST_CHECK_CLOSE(0.4, Olamani::Server::PLAYER_DECAY, 0.01);
-	BOOST_CHECK_CLOSE(0.1, Olamani::Server::PLAYER_RAND, 0.01);
-	BOOST_CHECK_CLOSE(0.3, Olamani::Server::PLAYER_SIZE, 0.01);
-	BOOST_CHECK_CLOSE(1.05, Olamani::Server::PLAYER_SPEED_MAX, 0.01);
-	BOOST_CHECK_CLOSE(0.75, Olamani::Server::PLAYER_SPEED_MAX_MIN, 0.01);
-	BOOST_CHECK_CLOSE(60.0, Olamani::Server::PLAYER_WEIGHT, 0.01);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::PLAYER_ACCEL_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.4, Olamani::Server::PLAYER_DECAY, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.1, Olamani::Server::PLAYER_RAND, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.3, Olamani::Server::PLAYER_SIZE, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.05, Olamani::Server::PLAYER_SPEED_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.75, Olamani::Server::PLAYER_SPEED_MAX_MIN, TOLERANCE);
+	BOOST_CHECK_CLOSE(60.0, Olamani::Server::PLAYER_WEIGHT, TOLERANCE);
 	BOOST_CHECK_EQUAL(5, Olamani::Server::POINT_TO_BAN);
 	BOOST_CHECK_EQUAL(20, Olamani::Server::POINT_TO_DURATION);
 	BOOST_CHECK_EQUAL(6000, Olamani::Server::PORT);
-	BOOST_CHECK_CLOSE(1.0, Olamani::Server::PRAND_FACTOR_L, 0.01);
-	BOOST_CHECK_CLOSE(1.0, Olamani::Server::PRAND_FACTOR_R, 0.01);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::PRAND_FACTOR_L, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::PRAND_FACTOR_R, TOLERANCE);
 	BOOST_CHECK_EQUAL(0, Olamani::Server::PROFILE);
 	BOOST_CHECK_EQUAL(0, Olamani::Server::PROPER_GOAL_KICKS);
-	
-	"(quantize_step 0.1)"
-	"(quantize_step_l 0.01)"
-	"(record_messages 0)"
-	"(recover_dec 0.002)"
-	"(recover_dec_thr 0.3)"
-	"(recover_init 1)"
-	"(recover_min 0.5)"
-	"(recv_step 10)"
-	"(red_card_probability 0)"
+	BOOST_CHECK_CLOSE(0.1, Olamani::Server::QUANTIZE_STEP, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.01, Olamani::Server::QUANTIZE_STEP_L, TOLERANCE);
+	BOOST_CHECK_EQUAL(0, Olamani::Server::RECORD_MESSAGES);
+	BOOST_CHECK_CLOSE(0.002, Olamani::Server::RECOVER_DEC, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.3, Olamani::Server::RECOVER_DEC_THR, TOLERANCE);
+	BOOST_CHECK_EQUAL(1.0, Olamani::Server::RECOVER_INIT);
+	BOOST_CHECK_CLOSE(0.5, Olamani::Server::RECOVER_MIN, TOLERANCE);
+	BOOST_CHECK_EQUAL(10, Olamani::Server::RECV_STEP);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Server::RED_CARD_PROBABILITY, TOLERANCE);
+	BOOST_CHECK_EQUAL(128, Olamani::Server::SAY_COACH_CNT_MAX);
+	BOOST_CHECK_EQUAL(128, Olamani::Server::SAY_COACH_MSG_SIZE);
+	BOOST_CHECK_EQUAL(10, Olamani::Server::SAY_MSG_SIZE);
+	BOOST_CHECK_EQUAL(0, Olamani::Server::SEND_COMMS);
+	BOOST_CHECK_EQUAL(150, Olamani::Server::SEND_STEP);
+	BOOST_CHECK_EQUAL(100, Olamani::Server::SEND_VI_STEP);
+	BOOST_CHECK_EQUAL(100, Olamani::Server::SENSE_BODY_STEP);
+	BOOST_CHECK_CLOSE(0.4, Olamani::Server::SIDE_DASH_RATE, TOLERANCE);
+	BOOST_CHECK_EQUAL(100, Olamani::Server::SIMULATOR_STEP);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::SLOW_DOWN_FACTOR, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::SLOWNESS_ON_TOP_FOR_LEFT_TEAM, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Server::SLOWNESS_ON_TOP_FOR_RIGHT_TEAM, TOLERANCE);
+	BOOST_CHECK_EQUAL(130600, Olamani::Server::STAMINA_CAPACITY);
+	BOOST_CHECK_EQUAL(45, Olamani::Server::STAMINA_INC_MAX);
+	BOOST_CHECK_EQUAL(8000, Olamani::Server::STAMINA_MAX);
+	BOOST_CHECK_EQUAL(0, Olamani::Server::START_GOAL_L);
+	BOOST_CHECK_EQUAL(0, Olamani::Server::START_GOAL_R);
+	BOOST_CHECK_CLOSE(0.01, Olamani::Server::STOPPED_BALL_VEL, TOLERANCE);
+	BOOST_CHECK_EQUAL(1, Olamani::Server::SYNCH_MICRO_SLEEP);
+	BOOST_CHECK_EQUAL(false, Olamani::Server::SYNCH_MODE);
+	BOOST_CHECK_EQUAL(60, Olamani::Server::SYNCH_OFFSET);
+	BOOST_CHECK_EQUAL(0, Olamani::Server::SYNCH_SEE_OFFSET);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Server::TACKLE_BACK_DIST, TOLERANCE);
+	BOOST_CHECK_EQUAL(10, Olamani::Server::TACKLE_CYCLES);
+	BOOST_CHECK_CLOSE(2.0, Olamani::Server::TACKLE_DIST, TOLERANCE);
+	BOOST_CHECK_EQUAL(6, Olamani::Server::TACKLE_EXPONENT);
+	BOOST_CHECK_CLOSE(0.027, Olamani::Server::TACKLE_POWER_RATE, TOLERANCE);
+	BOOST_CHECK_CLOSE(2.0, Olamani::Server::TACKLE_RAND_FACTOR, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.25, Olamani::Server::TACKLE_WIDTH, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Server::TEAM_ACTUATOR_NOISE, TOLERANCE);
+	BOOST_CHECK_EQUAL("", Olamani::Server::TEAM_L_START);
+	BOOST_CHECK_EQUAL("", Olamani::Server::TEAM_R_START);
+	BOOST_CHECK_EQUAL(false, Olamani::Server::TEXT_LOG_COMPRESSION);
+	BOOST_CHECK_EQUAL(true, Olamani::Server::TEXT_LOG_DATED);
+	BOOST_CHECK_EQUAL("./", Olamani::Server::TEXT_LOG_DIR);
+	BOOST_CHECK_EQUAL(0, Olamani::Server::TEXT_LOG_FIXED);
+	BOOST_CHECK_EQUAL("rcssserver", Olamani::Server::TEXT_LOG_FIXED_NAME);
+	BOOST_CHECK_EQUAL(true, Olamani::Server::TEXT_LOGGING);
+	BOOST_CHECK_EQUAL(true, Olamani::Server::USE_OFFSIDE);
+	BOOST_CHECK_EQUAL(false, Olamani::Server::VERBOSE);
+	BOOST_CHECK_CLOSE(90.0, Olamani::Server::VISIBLE_ANGLE, TOLERANCE);
+	BOOST_CHECK_CLOSE(3.0, Olamani::Server::VISIBLE_DISTANCE, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Server::WIND_ANG, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Server::WIND_DIR, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Server::WIND_FORCE, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Server::WIND_NONE, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Server::WIND_RAND, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Server::WIND_RANDOM, TOLERANCE);
 }

@@ -19,3 +19,6 @@ testDSL: src/DSL.cpp test/DSLTest.cpp include/DSL.hpp
 
 testServer: src/Server.cpp src/DSL.cpp test/ServerTest.cpp include/Server.hpp include/DSL.hpp
 	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o testServer src/Server.cpp test/ServerTest.cpp src/DSL.cpp $(CFLAGS)
+
+testBody: src/Body.cpp src/DSL.cpp test/BodyTest.cpp include/Body.hpp include/DSL.hpp
+	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o testBody src/Body.cpp test/BodyTest.cpp src/DSL.cpp $(CFLAGS)

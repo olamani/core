@@ -35,7 +35,22 @@ std::string player_params = "(player_param "
 	"(stamina_inc_max_delta_factor 0)"
 	"(subs_max 3))";
 std::string sense_body = "(sense_body 0 (view_mode high normal) (stamina 8000 1 130600) (speed 0 0) (head_angle 0) (kick 0) (dash 0) (turn 0) (say 0) (turn_neck 0) (catch 0) (move 0) (change_view 0) (arm (movable 0) (expires 0) (target 0 0) (count 0)) (focus (target none) (count 0)) (tackle (expires 0) (count 0)) (collision none) (foul  (charged 0) (card none)))";
-std::string player_type = "(player_type (id 0)(player_speed_max 1.05)(stamina_inc_max 45)(player_decay 0.4)(inertia_moment 5)(dash_power_rate 0.006)(player_size 0.3)(kickable_margin 0.7)(kick_rand 0.1)(extra_stamina 50)(effort_max 1)(effort_min 0.6)(kick_power_rate 0.027)(foul_detect_probability 0.5)(catchable_area_l_stretch 1))";
+std::string player_type = "(player_type "
+	"(id 0)"
+	"(player_speed_max 1.05)"
+	"(stamina_inc_max 45)"
+	"(player_decay 0.4)"
+	"(inertia_moment 5)"
+	"(dash_power_rate 0.006)"
+	"(player_size 0.3)"
+	"(kickable_margin 0.7)"
+	"(kick_rand 0.1)"
+	"(extra_stamina 50)"
+	"(effort_max 1)"
+	"(effort_min 0.6)"
+	"(kick_power_rate 0.027)"
+	"(foul_detect_probability 0.5)"
+	"(catchable_area_l_stretch 1))";
 
 BOOST_AUTO_TEST_CASE(parse_player_params) {
 	Olamani::Body::handleParametersMessage(player_params);
@@ -55,4 +70,14 @@ BOOST_AUTO_TEST_CASE(parse_player_params) {
 	BOOST_CHECK_CLOSE(1.0, Olamani::Body::KICK_RAND_DELTA_FACTOR, TOLERANCE);
 	BOOST_CHECK_CLOSE(0.1, Olamani::Body::KICKABLE_MARGIN_DELTA_MAX, TOLERANCE);
 	BOOST_CHECK_CLOSE(-0.1, Olamani::Body::KICKABLE_MARGIN_DELTA_MIN, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.0008, Olamani::Body::NEW_DASH_POWER_RATE_DELTA_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(-0.0012, Olamani::Body::NEW_DASH_POWER_RATE_DELTA_MIN, TOLERANCE);
+	BOOST_CHECK_CLOSE(-6000.0, Olamani::Body::NEW_STAMINA_INC_MAX_DELTA_FACTOR, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.1, Olamani::Body::PLAYER_DECAY_DELTA_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(-0.1, Olamani::Body::PLAYER_DECAY_DELTA_MIN, TOLERANCE);
+	BOOST_CHECK_EQUAL(18, Olamani::Body::PLAYER_TYPES);
+	BOOST_CHECK_EQUAL(1, Olamani::Body::PT_MAX);
+	BOOST_CHECK_EQUAL(1470779777, Olamani::Body::RANDOM_SEED);
+	BOOST_CHECK_CLOSE(0.0, Olamani::Body::STAMINA_INC_MAX_DELTA_FACTOR, TOLERANCE);
+	BOOST_CHECK_EQUAL(3, Olamani::Body::SUBS_MAX);
 }

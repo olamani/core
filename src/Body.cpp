@@ -13,8 +13,8 @@ std::string TEAM_NAME = "";
 int         UNIFORM_NUMBER = 0;
 std::string SIDE = "";
 bool        ALLOW_MULT_DEFAULT_TYPE = false;
-double      CATCHABLE_AREA_L_STRECH_MAX = 0.0;
-double      CATCHABLE_AREA_L_STRECH_MIN = 0.0;
+double      CATCHABLE_AREA_L_STRETCH_MAX = 0.0;
+double      CATCHABLE_AREA_L_STRETCH_MIN = 0.0;
 double      DASH_POWER_RATE_DELTA_MAX = 0.0;
 double      DASH_POWER_RATE_DELTA_MIN = 0.0;
 double      EFFORT_MAX_DELTA_FACTOR = 0.0;
@@ -230,8 +230,8 @@ std::string viewModeWidth(unsigned int time) {
 
 void handleParametersMessage(std::string message) {
     ALLOW_MULT_DEFAULT_TYPE = DSL::getBoolParameter(message, "allow_mult_default_type", false);
-    CATCHABLE_AREA_L_STRECH_MAX = DSL::getDoubleParameter(message, "catchable_area_l_stretch_max", 0.0);
-    CATCHABLE_AREA_L_STRECH_MIN = DSL::getDoubleParameter(message, "catchable_area_l_stretch_min", 0.0);
+    CATCHABLE_AREA_L_STRETCH_MAX = DSL::getDoubleParameter(message, "catchable_area_l_stretch_max", 0.0);
+    CATCHABLE_AREA_L_STRETCH_MIN = DSL::getDoubleParameter(message, "catchable_area_l_stretch_min", 0.0);
     DASH_POWER_RATE_DELTA_MAX = DSL::getDoubleParameter(message, "dash_power_rate_delta_max", 0.0);
     DASH_POWER_RATE_DELTA_MIN = DSL::getDoubleParameter(message, "dash_power_rate_delta_min", 0.0);
     EFFORT_MAX_DELTA_FACTOR = DSL::getDoubleParameter(message, "effort_max_delta_factor", 0.0);

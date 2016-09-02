@@ -117,6 +117,7 @@ std::string viewModeWidth(unsigned int time = 0);
 
 void handleParametersMessage(std::string message);
 void handlePlayerTypeMessage(std::string message);
+void clearTypes();
 void changePlayerType(int type);
 void handleBodyMessage(std::string message);
 

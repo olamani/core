@@ -81,7 +81,7 @@ std::string prepareRegex(std::string prepare) {
                 if (c == 't' || c == 'l' || c == 'c') {
                     builder << regexes[c];
                 }
-                it++;
+                it++; // consume closing parenthesis
                 break;
             }
         } else if (isalpha(c) || c == '_') {

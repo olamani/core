@@ -34,8 +34,7 @@ std::string player_params = "(player_param "
 	"(random_seed 1470779777)"
 	"(stamina_inc_max_delta_factor 0)"
 	"(subs_max 3))";
-std::string sense_body = "(sense_body 0 (view_mode high normal) (stamina 8000 1 130600) (speed 0 0) (head_angle 0) (kick 0) (dash 0) (turn 0) (say 0) (turn_neck 0) (catch 0) (move 0) (change_view 0) (arm (movable 0) (expires 0) (target 0 0) (count 0)) (focus (target none) (count 0)) (tackle (expires 0) (count 0)) (collision none) (foul  (charged 0) (card none)))";
-std::string player_type = "(player_type "
+std::string player_type_0 = "(player_type "
 	"(id 0)"
 	"(player_speed_max 1.05)"
 	"(stamina_inc_max 45)"
@@ -51,6 +50,29 @@ std::string player_type = "(player_type "
 	"(kick_power_rate 0.027)"
 	"(foul_detect_probability 0.5)"
 	"(catchable_area_l_stretch 1))";
+std::string player_type_1 = "(player_type "
+	"(id 1)"
+	"(player_speed_max 1.05)"
+	"(stamina_inc_max 48.5617)"
+	"(player_decay 0.365355)"
+	"(inertia_moment 4.13389)"
+	"(dash_power_rate 0.00540638)"
+	"(player_size 0.3)"
+	"(kickable_margin 0.666867)"
+	"(kick_rand 0.0668668)"
+	"(extra_stamina 60.371)"
+	"(effort_max 0.958516)"
+	"(effort_min 0.558516)"
+	"(kick_power_rate 0.027)"
+	"(foul_detect_probability 0.5)"
+	"(catchable_area_l_stretch 1.1488))";
+std::string sense_body_0 = "(sense_body 0 "
+	"(view_mode high normal) "
+	"(stamina 8000 1 130600) "
+	"(speed 0 0) "
+	"(head_angle 0) "
+	"(kick 0) "
+	"(dash 0) (turn 0) (say 0) (turn_neck 0) (catch 0) (move 0) (change_view 0) (arm (movable 0) (expires 0) (target 0 0) (count 0)) (focus (target none) (count 0)) (tackle (expires 0) (count 0)) (collision none) (foul  (charged 0) (card none)))";
 
 BOOST_AUTO_TEST_CASE(parse_player_params) {
 	Olamani::Body::handleParametersMessage(player_params);
@@ -80,4 +102,40 @@ BOOST_AUTO_TEST_CASE(parse_player_params) {
 	BOOST_CHECK_EQUAL(1470779777, Olamani::Body::RANDOM_SEED);
 	BOOST_CHECK_CLOSE(0.0, Olamani::Body::STAMINA_INC_MAX_DELTA_FACTOR, TOLERANCE);
 	BOOST_CHECK_EQUAL(3, Olamani::Body::SUBS_MAX);
+}
+
+BOOST_AUTO_TEST_CASE(change_player_type) {
+	Olamani::Body::clearTypes();
+	Olamani::Body::handlePlayerTypeMessage(player_type_0);
+	Olamani::Body::handlePlayerTypeMessage(player_type_1);
+	Olamani::Body::changePlayerType(0);
+	BOOST_CHECK_CLOSE(1.05, Olamani::Body::PLAYER_SPEED_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(45.0, Olamani::Body::STAMINA_INC_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.4, Olamani::Body::PLAYER_DECAY, TOLERANCE);
+	BOOST_CHECK_CLOSE(5.0, Olamani::Body::INERTIA_MOMENT, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.006, Olamani::Body::DASH_POWER_RATE, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.3, Olamani::Body::PLAYER_SIZE, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.7, Olamani::Body::KICKABLE_MARGIN, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.1, Olamani::Body::KICK_RAND, TOLERANCE);
+	BOOST_CHECK_CLOSE(50.0, Olamani::Body::EXTRA_STAMINA, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Body::EFFORT_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.6, Olamani::Body::EFFORT_MIN, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.027, Olamani::Body::KICK_POWER_RATE, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.5, Olamani::Body::FOUL_DETECT_PROBABILITY, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Body::CATCHABLE_AREA_L_STRETCH, TOLERANCE);
+	Olamani::Body::changePlayerType(1);
+	BOOST_CHECK_CLOSE(1.05, Olamani::Body::PLAYER_SPEED_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(48.5617, Olamani::Body::STAMINA_INC_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.365355, Olamani::Body::PLAYER_DECAY, TOLERANCE);
+	BOOST_CHECK_CLOSE(4.13389, Olamani::Body::INERTIA_MOMENT, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.00540638, Olamani::Body::DASH_POWER_RATE, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.3, Olamani::Body::PLAYER_SIZE, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.666867, Olamani::Body::KICKABLE_MARGIN, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.0668668, Olamani::Body::KICK_RAND, TOLERANCE);
+	BOOST_CHECK_CLOSE(60.371, Olamani::Body::EXTRA_STAMINA, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.958516, Olamani::Body::EFFORT_MAX, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.558516, Olamani::Body::EFFORT_MIN, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.027, Olamani::Body::KICK_POWER_RATE, TOLERANCE);
+	BOOST_CHECK_CLOSE(0.5, Olamani::Body::FOUL_DETECT_PROBABILITY, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.1488, Olamani::Body::CATCHABLE_AREA_L_STRETCH, TOLERANCE);
 }

@@ -292,6 +292,23 @@ void handlePlayerTypeMessage(std::string message) {
     staminaIncMax.push_back(DSL::getDoubleParameter(message, "stamina_inc_max", 0.0));
 }
 
+void clearTypes() {
+    catchableAreaLStretch.clear();
+    dashPowerRate.clear();
+    effortMax.clear();
+    effortMin.clear();
+    extraStamina.clear();
+    foulDetectProbability.clear();
+    inertiaMoment.clear();
+    kickPowerRate.clear();
+    kickRand.clear();
+    kickableMargin.clear();
+    playerDecay.clear();
+    playerSize.clear();
+    playerSpeedMax.clear();
+    staminaIncMax.clear();
+}
+
 void changePlayerType(int type) {
     if (type < PLAYER_TYPES) {
         CATCHABLE_AREA_L_STRETCH = catchableAreaLStretch[type];

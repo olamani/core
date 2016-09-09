@@ -2,6 +2,33 @@
 #include <boost/test/included/unit_test.hpp>
 #include "DSL.hpp"
 
+const double TOLERANCE = 0.01;
+
+std::string sense_body_0 = "(sense_body 10 "
+	"(view_mode high normal) "
+	"(stamina 8000 1 130600) "
+	"(speed 1.5 5) "
+	"(head_angle 45) "
+	"(kick 1) "
+	"(dash 2) "
+	"(turn 3) "
+	"(say 4) "
+	"(turn_neck 5) "
+	"(catch 6) "
+	"(move 7) "
+	"(change_view 8) "
+	"(arm (movable 0) "
+		"(expires 5) "
+		"(target 10 12) "
+		"(count 9)) "
+	"(focus (target none) "
+		"(count 10)) "
+	"(tackle (expires 7) "
+		"(count 11)) "
+	"(collision none) "
+	"(foul  (charged 1) "
+		"(card none)))";
+
 BOOST_AUTO_TEST_CASE(regex_prepare_int) {
 	std::string to_prepare = "(parameter $i)";
 	std::string prepared = Olamani::DSL::prepareRegex(to_prepare);
@@ -90,4 +117,37 @@ BOOST_AUTO_TEST_CASE(get_string_parameter_default) {
 	std::string message = "(message (other \"string\"))";
 	std::string found = Olamani::DSL::getStringParameter(message, "parameter", "default");
 	BOOST_CHECK_EQUAL(found, "default");
+}
+
+BOOST_AUTO_TEST_CASE(parse_sense_body) {
+	Olamani::DSL::sense_body parsed = Olamani::DSL::parseSenseBody(sense_body_0);
+	BOOST_CHECK_EQUAL(10, parsed.time);
+	BOOST_CHECK_EQUAL("high", parsed.view_mode.quality);
+	BOOST_CHECK_EQUAL("normal", parsed.view_mode.width);
+	BOOST_CHECK_CLOSE(8000.0, parsed.stamina.stamina, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, parsed.stamina.effort, TOLERANCE);
+	BOOST_CHECK_CLOSE(130600.0, parsed.stamina.capacity, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.5, parsed.speed.amount, TOLERANCE);
+	BOOST_CHECK_CLOSE(5.0, parsed.speed.direction, TOLERANCE);
+	BOOST_CHECK_CLOSE(45.0, parsed.head_angle, TOLERANCE);
+	BOOST_CHECK_EQUAL(1, parsed.kick);
+	BOOST_CHECK_EQUAL(2, parsed.dash);
+	BOOST_CHECK_EQUAL(3, parsed.turn);
+	BOOST_CHECK_EQUAL(4, parsed.say);
+	BOOST_CHECK_EQUAL(5, parsed.turn_neck);
+	BOOST_CHECK_EQUAL(6, parsed._catch);
+	BOOST_CHECK_EQUAL(7, parsed.move);
+	BOOST_CHECK_EQUAL(8, parsed.change_view);
+	BOOST_CHECK_EQUAL(0, parsed.arm.movable);
+	BOOST_CHECK_EQUAL(5, parsed.arm.expires);
+	BOOST_CHECK_CLOSE(10.0, parsed.arm.distance, TOLERANCE);
+	BOOST_CHECK_CLOSE(12.0, parsed.arm.direction, TOLERANCE);
+	BOOST_CHECK_EQUAL(9, parsed.arm.count);
+	BOOST_CHECK_EQUAL("none", parsed.focus.target);
+	BOOST_CHECK_EQUAL(10, parsed.focus.count);
+	BOOST_CHECK_EQUAL(7, parsed.tackle.expires);
+	BOOST_CHECK_EQUAL(11, parsed.tackle.count);
+	BOOST_CHECK_EQUAL("none", parsed.collision);
+	BOOST_CHECK_EQUAL(1, parsed.foul.charged);
+	BOOST_CHECK_EQUAL("none", parsed.foul.card);
 }

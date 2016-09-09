@@ -19,7 +19,7 @@ std::unordered_map<char, std::string> regexes = {
     {'c', "(none|yellow|red)"}
 };
 
-std::string sense_body = "(sense_body $i "
+std::string sense_body_str = "(sense_body $i "
     "(view_mode $s $s)$_"
     "(stamina $d $d $d)$_"
     "(speed $d $d)$_"
@@ -92,7 +92,7 @@ std::string prepareRegex(std::string prepare) {
     return builder.str();
 }
 
-std::string sense_body_regex = prepareRegex(sense_body);
+std::string sense_body_regex = prepareRegex(sense_body_str);
 
 std::string getSenseBodyRegex() {
     return sense_body_regex;
@@ -124,6 +124,43 @@ std::string getStringParameter(std::string message, std::string parameter, std::
         return match[1];
     }
     return _default;
+}
+
+sense_body parseSenseBody(std::string message) {
+    sense_body parsed;
+    std::smatch match;
+    if (std::regex_match(message, match, std::regex(sense_body_regex))) {
+        parsed.time = std::stoi(match[1]);
+        parsed.view_mode.quality = match[2];
+        parsed.view_mode.width = match[3];
+        parsed.stamina.stamina = std::stof(match[4]);
+        parsed.stamina.effort = std::stof(match[5]);
+        parsed.stamina.capacity = std::stof(match[6]);
+        parsed.speed.amount = std::stof(match[7]);
+        parsed.speed.direction = std::stof(match[8]);
+        parsed.head_angle = std::stof(match[9]);
+        parsed.kick = std::stoi(match[10]);
+        parsed.dash = std::stoi(match[11]);
+        parsed.turn = std::stoi(match[12]);
+        parsed.say = std::stoi(match[13]);
+        parsed.turn_neck = std::stoi(match[14]);
+        parsed._catch = std::stoi(match[15]);
+        parsed.move = std::stoi(match[16]);
+        parsed.change_view = std::stoi(match[17]);
+        parsed.arm.movable = std::stoi(match[18]);
+        parsed.arm.expires = std::stoi(match[19]);
+        parsed.arm.distance = std::stoi(match[20]);
+        parsed.arm.direction = std::stoi(match[21]);
+        parsed.arm.count = std::stoi(match[22]);
+        parsed.focus.target = match[23];
+        parsed.focus.count = std::stoi(match[24]);
+        parsed.tackle.expires = std::stoi(match[25]);
+        parsed.tackle.count = std::stoi(match[26]);
+        parsed.collision = match[27];
+        parsed.foul.charged = std::stoi(match[28]);
+        parsed.foul.card = match[29];
+    }
+    return parsed;
 }
 
 } // namespace DSL

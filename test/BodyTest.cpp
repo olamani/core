@@ -66,13 +66,54 @@ std::string player_type_1 = "(player_type "
 	"(kick_power_rate 0.027)"
 	"(foul_detect_probability 0.5)"
 	"(catchable_area_l_stretch 1.1488))";
-std::string sense_body_0 = "(sense_body 0 "
+std::string sense_body_0 = "(sense_body 10 "
 	"(view_mode high normal) "
 	"(stamina 8000 1 130600) "
-	"(speed 0 0) "
-	"(head_angle 0) "
-	"(kick 0) "
-	"(dash 0) (turn 0) (say 0) (turn_neck 0) (catch 0) (move 0) (change_view 0) (arm (movable 0) (expires 0) (target 0 0) (count 0)) (focus (target none) (count 0)) (tackle (expires 0) (count 0)) (collision none) (foul  (charged 0) (card none)))";
+	"(speed 1.5 5) "
+	"(head_angle 45) "
+	"(kick 1) "
+	"(dash 2) "
+	"(turn 3) "
+	"(say 4) "
+	"(turn_neck 5) "
+	"(catch 6) "
+	"(move 7) "
+	"(change_view 8) "
+	"(arm (movable 0) "
+		"(expires 5) "
+		"(target 10 12) "
+		"(count 9)) "
+	"(focus (target none) "
+		"(count 10)) "
+	"(tackle (expires 7) "
+		"(count 11)) "
+	"(collision none) "
+	"(foul  (charged 1) "
+		"(card none)))";
+std::string sense_body_1 = "(sense_body 11 "
+	"(view_mode low wide) "
+	"(stamina 7000 2 130000) "
+	"(speed 1.0 7) "
+	"(head_angle 20) "
+	"(kick 2) "
+	"(dash 3) "
+	"(turn 4) "
+	"(say 5) "
+	"(turn_neck 6) "
+	"(catch 7) "
+	"(move 8) "
+	"(change_view 9) "
+	"(arm (movable 1) "
+		"(expires 3) "
+		"(target 5 6) "
+		"(count 10)) "
+	"(focus (target none) "
+		"(count 11)) "
+	"(tackle (expires 4) "
+		"(count 12)) "
+	"(collision none) "
+	"(foul  (charged 0) "
+		"(card none)))";
 
 BOOST_AUTO_TEST_CASE(parse_player_params) {
 	Olamani::Body::handleParametersMessage(player_params);
@@ -138,4 +179,123 @@ BOOST_AUTO_TEST_CASE(change_player_type) {
 	BOOST_CHECK_CLOSE(0.027, Olamani::Body::KICK_POWER_RATE, TOLERANCE);
 	BOOST_CHECK_CLOSE(0.5, Olamani::Body::FOUL_DETECT_PROBABILITY, TOLERANCE);
 	BOOST_CHECK_CLOSE(1.1488, Olamani::Body::CATCHABLE_AREA_L_STRETCH, TOLERANCE);
+}
+
+BOOST_AUTO_TEST_CASE(handle_sense_body) {
+	Olamani::Body::handleBodyMessage(sense_body_0);
+	BOOST_CHECK_CLOSE(1.5, Olamani::Body::AMOUNT_OF_SPEED, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.5, Olamani::Body::amountOfSpeed(), TOLERANCE);
+	BOOST_CHECK_EQUAL(9, Olamani::Body::ARM_COUNT);
+	BOOST_CHECK_EQUAL(9, Olamani::Body::armCount());
+	BOOST_CHECK_CLOSE(12.0, Olamani::Body::ARM_DIRECTION, TOLERANCE);
+	BOOST_CHECK_CLOSE(12.0, Olamani::Body::armDirection(), TOLERANCE);
+	BOOST_CHECK_CLOSE(10.0, Olamani::Body::ARM_DISTANCE, TOLERANCE);
+	BOOST_CHECK_CLOSE(10.0, Olamani::Body::armDistance(), TOLERANCE);
+	BOOST_CHECK_EQUAL(5, Olamani::Body::ARM_EXPIRES);
+	BOOST_CHECK_EQUAL(5, Olamani::Body::armExpires());
+	BOOST_CHECK_EQUAL(0, Olamani::Body::ARM_MOVABLE);
+	BOOST_CHECK_EQUAL(0, Olamani::Body::armMovable());
+	BOOST_CHECK_EQUAL(6, Olamani::Body::CATCH_COUNT);
+	BOOST_CHECK_EQUAL(6, Olamani::Body::catchCount());
+	// TODO: check collisions
+	BOOST_CHECK_EQUAL(8, Olamani::Body::CHANGE_VIEW_COUNT);
+	BOOST_CHECK_EQUAL(8, Olamani::Body::changeViewCount());
+	BOOST_CHECK_EQUAL(2, Olamani::Body::DASH_COUNT);
+	BOOST_CHECK_EQUAL(2, Olamani::Body::dashCount());
+	BOOST_CHECK_CLOSE(5.0, Olamani::Body::DIRECTION_OF_SPEED, TOLERANCE);
+	BOOST_CHECK_CLOSE(5.0, Olamani::Body::directionOfSpeed(), TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Body::EFFORT, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Body::effort(), TOLERANCE);
+	BOOST_CHECK_EQUAL(10, Olamani::Body::FOCUS_COUNT);
+	BOOST_CHECK_EQUAL(10, Olamani::Body::focusCount());
+	BOOST_CHECK_EQUAL("none", Olamani::Body::FOCUS_TARGET);
+	BOOST_CHECK_EQUAL("none", Olamani::Body::focusTarget());
+	BOOST_CHECK_EQUAL("none", Olamani::Body::FOUL_CARD);
+	BOOST_CHECK_EQUAL("none", Olamani::Body::foulCard());
+	BOOST_CHECK_EQUAL(1, Olamani::Body::FOUL_CHARGED);
+	BOOST_CHECK_EQUAL(1, Olamani::Body::foulCharged());
+	BOOST_CHECK_CLOSE(45.0, Olamani::Body::HEAD_ANGLE, TOLERANCE);
+	BOOST_CHECK_CLOSE(45.0, Olamani::Body::headAngle(), TOLERANCE);
+	BOOST_CHECK_EQUAL(1, Olamani::Body::KICK_COUNT);
+	BOOST_CHECK_EQUAL(1, Olamani::Body::kickCount());
+	BOOST_CHECK_EQUAL(7, Olamani::Body::MOVE_COUNT);
+	BOOST_CHECK_EQUAL(7, Olamani::Body::moveCount());
+	BOOST_CHECK_EQUAL(4, Olamani::Body::SAY_COUNT);
+	BOOST_CHECK_EQUAL(4, Olamani::Body::sayCount());
+	BOOST_CHECK_CLOSE(8000.0, Olamani::Body::STAMINA, TOLERANCE);
+	BOOST_CHECK_CLOSE(8000.0, Olamani::Body::stamina(), TOLERANCE);
+	BOOST_CHECK_CLOSE(130600.0, Olamani::Body::STAMINA_CAPACITY, TOLERANCE);
+	BOOST_CHECK_CLOSE(130600.0, Olamani::Body::staminaCapacity(), TOLERANCE);
+	BOOST_CHECK_EQUAL(11, Olamani::Body::TACKLE_COUNT);
+	BOOST_CHECK_EQUAL(11, Olamani::Body::tackleCount());
+	BOOST_CHECK_EQUAL(7, Olamani::Body::TACKLE_EXPIRES);
+	BOOST_CHECK_EQUAL(7, Olamani::Body::tackleExpires());
+	BOOST_CHECK_EQUAL(3, Olamani::Body::TURN_COUNT);
+	BOOST_CHECK_EQUAL(3, Olamani::Body::turnCount());
+	BOOST_CHECK_EQUAL(5, Olamani::Body::TURN_NECK_COUNT);
+	BOOST_CHECK_EQUAL(5, Olamani::Body::turnNeckCount());
+	BOOST_CHECK_EQUAL("high", Olamani::Body::VIEW_MODE_QUALITY);
+	BOOST_CHECK_EQUAL("high", Olamani::Body::viewModeQuality());
+	BOOST_CHECK_EQUAL("normal", Olamani::Body::VIEW_MODE_WIDTH);
+	BOOST_CHECK_EQUAL("normal", Olamani::Body::viewModeWidth());
+}
+
+BOOST_AUTO_TEST_CASE(sense_body_history) {
+	Olamani::Body::handleBodyMessage(sense_body_0);
+	Olamani::Body::handleBodyMessage(sense_body_1);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Body::AMOUNT_OF_SPEED, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.5, Olamani::Body::amountOfSpeed(1), TOLERANCE);
+	BOOST_CHECK_EQUAL(10, Olamani::Body::ARM_COUNT);
+	BOOST_CHECK_EQUAL(9, Olamani::Body::armCount(1));
+	BOOST_CHECK_CLOSE(6.0, Olamani::Body::ARM_DIRECTION, TOLERANCE);
+	BOOST_CHECK_CLOSE(12.0, Olamani::Body::armDirection(1), TOLERANCE);
+	BOOST_CHECK_CLOSE(5.0, Olamani::Body::ARM_DISTANCE, TOLERANCE);
+	BOOST_CHECK_CLOSE(10.0, Olamani::Body::armDistance(1), TOLERANCE);
+	BOOST_CHECK_EQUAL(3, Olamani::Body::ARM_EXPIRES);
+	BOOST_CHECK_EQUAL(5, Olamani::Body::armExpires(1));
+	BOOST_CHECK_EQUAL(1, Olamani::Body::ARM_MOVABLE);
+	BOOST_CHECK_EQUAL(0, Olamani::Body::armMovable(1));
+	BOOST_CHECK_EQUAL(7, Olamani::Body::CATCH_COUNT);
+	BOOST_CHECK_EQUAL(6, Olamani::Body::catchCount(1));
+	// TODO: check collisions
+	BOOST_CHECK_EQUAL(9, Olamani::Body::CHANGE_VIEW_COUNT);
+	BOOST_CHECK_EQUAL(8, Olamani::Body::changeViewCount(1));
+	BOOST_CHECK_EQUAL(3, Olamani::Body::DASH_COUNT);
+	BOOST_CHECK_EQUAL(2, Olamani::Body::dashCount(1));
+	BOOST_CHECK_CLOSE(7.0, Olamani::Body::DIRECTION_OF_SPEED, TOLERANCE);
+	BOOST_CHECK_CLOSE(5.0, Olamani::Body::directionOfSpeed(1), TOLERANCE);
+	BOOST_CHECK_CLOSE(2.0, Olamani::Body::EFFORT, TOLERANCE);
+	BOOST_CHECK_CLOSE(1.0, Olamani::Body::effort(1), TOLERANCE);
+	BOOST_CHECK_EQUAL(11, Olamani::Body::FOCUS_COUNT);
+	BOOST_CHECK_EQUAL(10, Olamani::Body::focusCount(1));
+	BOOST_CHECK_EQUAL("none", Olamani::Body::FOCUS_TARGET);
+	BOOST_CHECK_EQUAL("none", Olamani::Body::focusTarget(1));
+	BOOST_CHECK_EQUAL("none", Olamani::Body::FOUL_CARD);
+	BOOST_CHECK_EQUAL("none", Olamani::Body::foulCard(1));
+	BOOST_CHECK_EQUAL(0, Olamani::Body::FOUL_CHARGED);
+	BOOST_CHECK_EQUAL(1, Olamani::Body::foulCharged(1));
+	BOOST_CHECK_CLOSE(20.0, Olamani::Body::HEAD_ANGLE, TOLERANCE);
+	BOOST_CHECK_CLOSE(45.0, Olamani::Body::headAngle(1), TOLERANCE);
+	BOOST_CHECK_EQUAL(2, Olamani::Body::KICK_COUNT);
+	BOOST_CHECK_EQUAL(1, Olamani::Body::kickCount(1));
+	BOOST_CHECK_EQUAL(8, Olamani::Body::MOVE_COUNT);
+	BOOST_CHECK_EQUAL(7, Olamani::Body::moveCount(1));
+	BOOST_CHECK_EQUAL(5, Olamani::Body::SAY_COUNT);
+	BOOST_CHECK_EQUAL(4, Olamani::Body::sayCount(1));
+	BOOST_CHECK_CLOSE(7000.0, Olamani::Body::STAMINA, TOLERANCE);
+	BOOST_CHECK_CLOSE(8000.0, Olamani::Body::stamina(1), TOLERANCE);
+	BOOST_CHECK_CLOSE(130000.0, Olamani::Body::STAMINA_CAPACITY, TOLERANCE);
+	BOOST_CHECK_CLOSE(130600.0, Olamani::Body::staminaCapacity(1), TOLERANCE);
+	BOOST_CHECK_EQUAL(12, Olamani::Body::TACKLE_COUNT);
+	BOOST_CHECK_EQUAL(11, Olamani::Body::tackleCount(1));
+	BOOST_CHECK_EQUAL(4, Olamani::Body::TACKLE_EXPIRES);
+	BOOST_CHECK_EQUAL(7, Olamani::Body::tackleExpires(1));
+	BOOST_CHECK_EQUAL(4, Olamani::Body::TURN_COUNT);
+	BOOST_CHECK_EQUAL(3, Olamani::Body::turnCount(1));
+	BOOST_CHECK_EQUAL(6, Olamani::Body::TURN_NECK_COUNT);
+	BOOST_CHECK_EQUAL(5, Olamani::Body::turnNeckCount(1));
+	BOOST_CHECK_EQUAL("low", Olamani::Body::VIEW_MODE_QUALITY);
+	BOOST_CHECK_EQUAL("high", Olamani::Body::viewModeQuality(1));
+	BOOST_CHECK_EQUAL("wide", Olamani::Body::VIEW_MODE_WIDTH);
+	BOOST_CHECK_EQUAL("normal", Olamani::Body::viewModeWidth(1));
 }

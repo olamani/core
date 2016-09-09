@@ -1,5 +1,6 @@
 #include <vector>
 #include <boost/circular_buffer.hpp>
+#include <regex>
 #include "Body.hpp"
 #include "DSL.hpp"
 
@@ -329,7 +330,89 @@ void changePlayerType(int type) {
 }
 
 void handleBodyMessage(std::string message) {
-    
+    DSL::sense_body parsed = DSL::parseSenseBody(message);
+    // amount of speed
+    AMOUNT_OF_SPEED = parsed.speed.amount;
+    amountOfSpeedBuffer.push_front(parsed.speed.amount);
+    // arm count
+    ARM_COUNT = parsed.arm.count;
+    armCountBuffer.push_front(parsed.arm.count);
+    // arm direction
+    ARM_DIRECTION = parsed.arm.direction;
+    armDirectionBuffer.push_front(parsed.arm.direction);
+    // arm distance
+    ARM_DISTANCE = parsed.arm.distance;
+    armDistanceBuffer.push_front(parsed.arm.distance);
+    // arm expires
+    ARM_EXPIRES = parsed.arm.expires;
+    armExpiresBuffer.push_front(parsed.arm.expires);
+    // arm movable
+    ARM_MOVABLE = parsed.arm.movable;
+    armMovableBuffer.push_front(parsed.arm.movable);
+    // catch count
+    CATCH_COUNT = parsed._catch;
+    catchCountBuffer.push_front(parsed._catch);
+    // TODO: push collisions
+    // change view
+    CHANGE_VIEW_COUNT = parsed.change_view;
+    changeViewCountBuffer.push_front(parsed.change_view);
+    // dash count
+    DASH_COUNT = parsed.dash;
+    dashCountBuffer.push_front(parsed.dash);
+    // direction of speed
+    DIRECTION_OF_SPEED = parsed.speed.direction;
+    directionOfSpeedBuffer.push_front(parsed.speed.direction);
+    // effort
+    EFFORT = parsed.stamina.effort;
+    effortBuffer.push_front(parsed.stamina.effort);
+    // focus count
+    FOCUS_COUNT = parsed.focus.count;
+    focusCountBuffer.push_front(parsed.focus.count);
+    // focus target
+    FOCUS_TARGET = parsed.focus.target;
+    focusTargetBuffer.push_front(parsed.focus.target);
+    // foul card
+    FOUL_CARD = parsed.foul.card;
+    foulCardBuffer.push_front(parsed.foul.card);
+    // foul charged
+    FOUL_CHARGED = parsed.foul.charged;
+    foulChargedBuffer.push_front(parsed.foul.charged);
+    // head angle
+    HEAD_ANGLE = parsed.head_angle;
+    headAngleBuffer.push_front(parsed.head_angle);
+    // kick count
+    KICK_COUNT = parsed.kick;
+    kickCountBuffer.push_front(parsed.kick);
+    // move count
+    MOVE_COUNT = parsed.move;
+    moveCountBuffer.push_front(parsed.move);
+    // say count
+    SAY_COUNT = parsed.say;
+    sayCountBuffer.push_front(parsed.say);
+    // stamina
+    STAMINA = parsed.stamina.stamina;
+    staminaBuffer.push_front(parsed.stamina.stamina);
+    // stamina capacity
+    STAMINA_CAPACITY = parsed.stamina.capacity;
+    staminaCapacityBuffer.push_front(parsed.stamina.capacity);
+    // tackle count
+    TACKLE_COUNT = parsed.tackle.count;
+    tackleCountBuffer.push_front(parsed.tackle.count);
+    // tackle expires
+    TACKLE_EXPIRES = parsed.tackle.expires;
+    tackleExpiresBuffer.push_front(parsed.tackle.expires);
+    // turn count
+    TURN_COUNT = parsed.turn;
+    turnCountBuffer.push_front(parsed.turn);
+    // turn neck count
+    TURN_NECK_COUNT = parsed.turn_neck;
+    turnNeckCountBuffer.push_front(parsed.turn_neck);
+    // view mode quality
+    VIEW_MODE_QUALITY = parsed.view_mode.quality;
+    viewModeQualityBuffer.push_front(parsed.view_mode.quality);
+    // view mode width
+    VIEW_MODE_WIDTH = parsed.view_mode.width;
+    viewModeWidthBuffer.push_front(parsed.view_mode.width);
 }
 
 } // namespace Body

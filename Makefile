@@ -9,7 +9,6 @@ core: test.cpp \
 	src/Configs.cpp include/Configs.hpp \
 	src/Connection.cpp include/Connection.hpp \
 	src/DSL.cpp include/DSL.hpp \
-	src/Locks.cpp include/Locks.hpp \
 	src/Parser.cpp include/Parser.hpp \
 	src/Server.cpp include/Server.hpp
 	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o $(TARGET) test.cpp src/Connection.cpp $(CFLAGS)

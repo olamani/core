@@ -28,6 +28,25 @@ std::string sense_body_0 = "(sense_body 10 "
 	"(collision none) "
 	"(foul  (charged 1) "
 		"(card none)))";
+std::string see_0 = "(see 0 "
+	"((f r t) 55.7 3) "
+	"((f g r b) 70.8 38) "
+	"((g r) 66.7 34) "
+	"((f g r t) 62.8 28) "
+	"((f p r c) 53.5 43) "
+	"((f p r t) 42.5 23) "
+	"((f t 0) 3.6 -34 0 0) "
+	"((f t r 10) 13.2 -9 0 0) "
+	"((f t r 20) 23.1 -5 0 0) "
+	"((f t r 30) 33.1 -3) "
+	"((f t r 40) 42.9 -3) "
+	"((f t r 50) 53 -2) "
+	"((f r 0) 70.8 31) "
+	"((f r t 10) 66 24) "
+	"((f r t 20) 62.8 16) "
+	"((f r t 30) 60.9 7) "
+	"((f r b 10) 76.7 38) "
+	"((f r b 20) 83.1 43))";
 
 BOOST_AUTO_TEST_CASE(regex_prepare_int) {
 	std::string to_prepare = "(parameter $i)";
@@ -150,4 +169,20 @@ BOOST_AUTO_TEST_CASE(parse_sense_body) {
 	BOOST_CHECK_EQUAL("none", parsed.collision);
 	BOOST_CHECK_EQUAL(1, parsed.foul.charged);
 	BOOST_CHECK_EQUAL("none", parsed.foul.card);
+}
+
+BOOST_AUTO_TEST_CASE(parse_see) {
+	Olamani::DSL::see parsed = Olamani::DSL::parseSee(see_0);
+	BOOST_CHECK_EQUAL(18, parsed.objects.size());
+	int flags = 0;
+	int goals = 0;
+	for (auto it = parsed.objects.begin(); it != parsed.objects.end(); ++it) {
+		if (it->type == 'f') {
+			flags++;
+		} else if (it->type == 'g') {
+			goals++;
+		}
+	}
+	BOOST_CHECK_EQUAL(17, flags);
+	BOOST_CHECK_EQUAL(1, goals);
 }

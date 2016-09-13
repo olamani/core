@@ -93,6 +93,7 @@ std::string prepareRegex(std::string prepare) {
 }
 
 std::string sense_body_regex = prepareRegex(sense_body_str);
+std::string see_regex = "\\(([^()]+)\\)\\s*([\\d\\.\\-etk\\s]*)";
 
 std::string getSenseBodyRegex() {
     return sense_body_regex;
@@ -161,6 +162,20 @@ sense_body parseSenseBody(std::string message) {
         parsed.foul.card = match[29];
     }
     return parsed;
+}
+
+see parseSee(std::string message) {
+    see see;
+    std::smatch match;
+    while (std::regex_search(message, match, std::regex(see_regex))) {
+        object object;
+        object.name = match[1];
+        object.type = object.name[0];
+        object.data = match[2];
+        see.objects.push_back(object);
+        message = match.suffix();
+    }
+    return see;
 }
 
 } // namespace DSL

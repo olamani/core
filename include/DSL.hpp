@@ -2,6 +2,7 @@
 #define DSL_HPP
 
 #include <string>
+#include <list>
 
 namespace Olamani {
 
@@ -67,6 +68,17 @@ struct sense_body {
     foul foul;
 };
 
+struct object {
+    char type;
+    std::string name;
+    std::string data;
+};
+
+struct see {
+    int time;
+    std::list<object> objects;
+};
+
 std::string prepareRegex(std::string prepare);
 std::string getSenseBodyRegex();
 int getIntParameter(std::string message, std::string parameter, int _default);
@@ -74,6 +86,7 @@ double getDoubleParameter(std::string message, std::string parameter, double _de
 bool getBoolParameter(std::string message, std::string parameter, bool _default);
 std::string getStringParameter(std::string message, std::string parameter, std::string _default);
 sense_body parseSenseBody(std::string message);
+see parseSee(std::string message);
 
 } // namespace DSL
 

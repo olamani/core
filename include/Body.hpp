@@ -10,7 +10,7 @@ namespace Body {
 
 extern std::string TEAM_NAME;
 extern int         UNIFORM_NUMBER;
-extern std::string SIDE;
+extern char        SIDE;
 extern bool        ALLOW_MULT_DEFAULT_TYPE;
 extern double      CATCHABLE_AREA_L_STRETCH_MAX;
 extern double      CATCHABLE_AREA_L_STRETCH_MIN;

@@ -21,3 +21,6 @@ testServer: src/Server.cpp src/DSL.cpp test/ServerTest.cpp include/Server.hpp in
 
 testBody: src/Body.cpp src/DSL.cpp test/BodyTest.cpp include/Body.hpp include/DSL.hpp
 	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o testBody src/Body.cpp test/BodyTest.cpp src/DSL.cpp $(CFLAGS)
+
+testFlag: src/Flag.cpp test/FlagTest.cpp include/Flag.hpp
+	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o testFlag src/Flag.cpp test/FlagTest.cpp $(CFLAGS)

@@ -12,7 +12,7 @@ namespace Body {
 
 std::string TEAM_NAME = "";
 int         UNIFORM_NUMBER = 0;
-std::string SIDE = "";
+char        SIDE = "";
 bool        ALLOW_MULT_DEFAULT_TYPE = false;
 double      CATCHABLE_AREA_L_STRETCH_MAX = 0.0;
 double      CATCHABLE_AREA_L_STRETCH_MIN = 0.0;

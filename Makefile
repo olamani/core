@@ -2,7 +2,7 @@ TARGET=core
 CC=clang++
 CSTD=c++11
 CSTDLIB=libc++
-CFLAGS=-I./include
+CFLAGS=-I./include -I/usr/local/include
 
 core: test.cpp \
 	src/Body.cpp include/Body.hpp \
@@ -24,3 +24,6 @@ testBody: src/Body.cpp src/DSL.cpp test/BodyTest.cpp include/Body.hpp include/DS
 
 testFlag: src/Flag.cpp test/FlagTest.cpp include/Flag.hpp
 	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o testFlag src/Flag.cpp test/FlagTest.cpp $(CFLAGS)
+
+testTrainer: src/Trainer.cpp test/TrainerTest.cpp include/Trainer.hpp
+	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o testTrainer src/Trainer.cpp test/TrainerTest.cpp $(CFLAGS)

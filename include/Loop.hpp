@@ -1,11 +1,11 @@
-#ifndef PARSER_HPP
-#define PARSER_HPP
+#ifndef LOOP_HPP
+#define LOOP_HPP
 
 #include "Connection.hpp"
 
 namespace Olamani {
 
-namespace Parser {
+namespace Loop {
 
 void setConnection(Connection* connection);
 void start();
@@ -15,4 +15,4 @@ void stop();
 
 } // namespace Olamani
 
-#endif // PARSER_HPP
+#endif // LOOP_HPP

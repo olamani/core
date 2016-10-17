@@ -1,11 +1,11 @@
 #include <thread>
 #include <iostream>
-#include "Parser.hpp"
+#include "Loop.hpp"
 #include "Connection.hpp"
 
 namespace Olamani {
 
-namespace Parser {
+namespace Loop {
 
 std::thread thread;
 bool running = false;
@@ -37,6 +37,6 @@ void stop() {
     thread.join();
 }
 
-} // namespace Parser
+} // namespace Loop
 
 } // namespace Olamani

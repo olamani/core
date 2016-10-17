@@ -90,4 +90,20 @@ void Flag::setData(std::string name, std::string position) {
     direction = std::stof(token);
 }
 
+double Flag::getX() {
+    return x;
+}
+
+double Flag::getY() {
+    return y;
+}
+
+double Flag::getDirection() {
+    return direction;
+}
+
+double Flag::getDistance() {
+    return distance;
+}
+
 } // namespace Olamani

@@ -6,13 +6,13 @@
 namespace Olamani {
 
 enum TokenType {
-    EOF,
+    END,
     NUMBER,
     IDENTIFIER,
     LP,
     RP,
     ERROR
-}
+};
 
 struct Token {
     std::string value;

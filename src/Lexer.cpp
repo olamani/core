@@ -1,5 +1,6 @@
 #include <string>
 #include <cctype>
+#include "Lexer.hpp"
 
 namespace Olamani {
 
@@ -41,7 +42,7 @@ Token Lexer::next() {
         do {
             position++;
         } while (isAlphaNumeric());
-        std::string value = stream.substr(start, position);
+        std::string value = stream.substr(start, position - start);
         position--;
         token.type = IDENTIFIER;
         token.value = value;
@@ -52,14 +53,14 @@ Token Lexer::next() {
         do {
             position++;
         } while (isNumeric());
-        std::string value = stream.substr(start, position);
+        std::string value = stream.substr(start, position - start);
         position--;
         token.type = NUMBER;
         token.value = value;
         return token;
     }
     if (isEOL()) {
-        token.type = EOL;
+        token.type = END;
         token.value = "";
         return token;
     }
@@ -70,7 +71,7 @@ Token Lexer::next() {
 }
 
 bool Lexer::isEOL() {
-    return position == stream.length;
+    return position == stream.length();
 }
 
 bool Lexer::isSpace() {

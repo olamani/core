@@ -27,3 +27,6 @@ testFlag: src/Flag.cpp test/FlagTest.cpp include/Flag.hpp
 
 testTrainer: src/Trainer.cpp test/TrainerTest.cpp include/Trainer.hpp
 	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o testTrainer src/Trainer.cpp test/TrainerTest.cpp $(CFLAGS)
+
+testLexer: src/Lexer.cpp test/LexerTest.cpp include/Lexer.hpp
+	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o testLexer src/Lexer.cpp test/LexerTest.cpp $(CFLAGS)

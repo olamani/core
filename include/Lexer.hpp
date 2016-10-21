@@ -7,6 +7,7 @@ namespace Olamani {
 
 enum TokenType {
     END,
+    LIST,
     NUMBER,
     IDENTIFIER,
     LP,
@@ -22,6 +23,7 @@ struct Token {
 class Lexer {
 private:
     int position;
+    int head;
     std::string stream;
     bool isEOL();
     bool isSpace();
@@ -31,6 +33,7 @@ private:
     bool isAlphaNumeric();
     bool isNumeric();
 public:
+    Lexer();
     Lexer(std::string stream);
     ~Lexer();
     void reset();

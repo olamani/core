@@ -30,3 +30,6 @@ testTrainer: src/Trainer.cpp test/TrainerTest.cpp include/Trainer.hpp
 
 testLexer: src/Lexer.cpp test/LexerTest.cpp include/Lexer.hpp
 	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o testLexer src/Lexer.cpp test/LexerTest.cpp $(CFLAGS)
+
+testParser: src/Lexer.cpp src/Parser.cpp test/ParserTest.cpp include/Lexer.hpp include/Parser.hpp
+	$(CC) -std=$(CSTD) -stdlib=$(CSTDLIB) -o testParser src/Lexer.cpp src/Parser.cpp test/ParserTest.cpp $(CFLAGS)

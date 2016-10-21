@@ -4,6 +4,10 @@
 
 namespace Olamani {
 
+Lexer::Lexer() {
+
+}
+
 Lexer::Lexer(std::string stream) {
     this->stream = stream;
     position = 0;
@@ -15,14 +19,16 @@ Lexer::~Lexer() {
 
 void Lexer::reset() {
     stream = "";
+    head = 0;
     position = 0;
 }
 
 void Lexer::consume() {
-    position++;
+    head = position + 1;
 }
 
 Token Lexer::next() {
+    position = head;
     Token token;
     while (isSpace()) {
         position++;
@@ -71,7 +77,7 @@ Token Lexer::next() {
 }
 
 bool Lexer::isEOL() {
-    return position == stream.length();
+    return head == stream.length();
 }
 
 bool Lexer::isSpace() {

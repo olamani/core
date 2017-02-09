@@ -120,6 +120,9 @@ void handlePlayerTypeMessage(std::string message);
 void clearTypes();
 void changePlayerType(int type);
 void handleBodyMessage(std::string message);
+void start();
+void sendMessage(std::string message);
+void stop();
 
 } // namespace Body
 

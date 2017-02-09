@@ -6,19 +6,11 @@
 
 namespace Olamani {
 
-Player::Player() {
-
-}
-
-Player::~Player() {
-
-}
-
 void Player::setData(std::string name, std::string position) {
     std::vector<std::string> name_tokens;
     std::vector<std::string> position_tokens;
     std::stringstream ss_name(name);
-    std::srtingstream ss_position(position);
+    std::stringstream ss_position(position);
     std::string token;
     while (std::getline(ss_name, token, ' ')) {
         name_tokens.push_back(token);
@@ -40,10 +32,10 @@ void Player::setData(std::string name, std::string position) {
     case 4:
         is_goalie = true;
     case 3:
-        number = std::stoi(token[2]);
+        number = std::stoi(name_tokens[2]);
     case 2:
-        team = name_tokens[1].substr(1, tokens[1].length() - 2);
-        if (team.compare(Body::TEAM) == 0) {
+        team = name_tokens[1].substr(1, name_tokens[1].length() - 2);
+        if (team.compare(Body::TEAM_NAME) == 0) {
             player_team = OUR;
         } else {
             player_team = OPP;
@@ -111,6 +103,50 @@ double Player::getDistance() {
 
 double Player::getDirection() {
     return direction;
+}
+
+double Player::getDirectionChange() {
+    return direction_change;
+}
+
+double Player::getDistanceChange() {
+    return distance_change;
+}
+
+double Player::getHeadDirection() {
+    return head_direction;
+}
+
+double Player::getBodyDirection() {
+    return body_direction;
+}
+
+double Player::getPointDirection() {
+    return point_direction;
+}
+
+bool Player::isKicking() {
+    return is_kicking;
+}
+
+bool Player::isTackling() {
+    return is_tackling;
+}
+
+bool Player::isGoalie() {
+    return is_goalie;
+}
+
+bool Player::isPointing() {
+    return is_pointing;
+}
+
+PlayerTeam Player::getTeam() {
+    return player_team;
+}
+
+int Player::getNumber() {
+    return number;
 }
 
 } // namespace Olamani

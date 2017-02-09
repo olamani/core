@@ -9,7 +9,7 @@ enum PlayerTeam {
     UNKNOWN,
     OUR,
     OPP
-}
+};
 
 class Player {
 private:
@@ -29,12 +29,31 @@ private:
     PlayerTeam player_team;
     int number;
 public:
-    Player();
-    ~Player();
+    Player(): x(0.0), 
+              y(0.0), 
+              direction(0.0), 
+              distance(100.0), 
+              direction_change(0.0), 
+              distance_change(0.0),
+              body_direction(0.0),
+              head_direction(0.0),
+              point_direction(0.0),
+              is_kicking(false),
+              is_tackling(false),
+              is_goalie(false),
+              is_pointing(false),
+              player_team(UNKNOWN),
+              number(0) {};
+    ~Player() {};
     void setData(std::string name, std::string position);
     void localize(double x, double y, double vx, double vy);
     double getDirection();
     double getDistance();
+    double getDirectionChange();
+    double getDistanceChange();
+    double getHeadDirection();
+    double getBodyDirection();
+    double getPointDirection();
     bool isKicking();
     bool isTackling();
     bool isGoalie();

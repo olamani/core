@@ -1,6 +1,10 @@
 #include <vector>
 #include <boost/circular_buffer.hpp>
 #include <regex>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+#include <iostream>
 #include "Body.hpp"
 #include "DSL.hpp"
 
@@ -12,7 +16,7 @@ namespace Body {
 
 std::string TEAM_NAME = "";
 int         UNIFORM_NUMBER = 0;
-char        SIDE = "";
+char        SIDE = 'l';
 bool        ALLOW_MULT_DEFAULT_TYPE = false;
 double      CATCHABLE_AREA_L_STRETCH_MAX = 0.0;
 double      CATCHABLE_AREA_L_STRETCH_MIN = 0.0;
@@ -413,6 +417,46 @@ void handleBodyMessage(std::string message) {
     // view mode width
     VIEW_MODE_WIDTH = parsed.view_mode.width;
     viewModeWidthBuffer.push_front(parsed.view_mode.width);
+    std::cout << "Parsed sense body at time " << parsed.time << std::endl;
+}
+
+static std::mutex mutex;
+static std::condition_variable condition;
+static std::string message;
+static std::thread thread;
+static bool ready = false;
+static bool running = false;
+
+void loop() {
+    while (running) {
+        std::unique_lock<std::mutex> lock(mutex);
+        condition.wait(lock, []{ return ready; });
+        if (message.length() != 0) {
+            handleBodyMessage(message);
+        }
+        ready = false;
+        lock.unlock();
+    }
+}
+
+void start() {
+    running = true;
+    thread = std::thread(loop);
+    std::cout << "Body loop started" << std::endl;
+}
+
+void sendMessage(std::string message_) {
+    message = message_;
+    std::lock_guard<std::mutex> lock(mutex);
+    ready = true;
+    condition.notify_one();
+}
+
+void stop() {
+    running = false;
+    sendMessage("");
+    thread.join();
+    std::cout << "Body loop stopped" << std::endl;
 }
 
 } // namespace Body

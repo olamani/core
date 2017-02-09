@@ -9,15 +9,11 @@ namespace Controller {
 
 enum AgentType {
     PLAYER,
-    GOALIE,
-    COACH,
-    TRAINER
-}
+    GOALIE
+};
 
-void setHost(std::string host);
-void setPort(int port);
-void setAgentType(AgentType type);
-void reset();
+extern AgentType   type;
+
 void connect();
 void disconnect();
 

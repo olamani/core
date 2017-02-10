@@ -55,11 +55,11 @@ void start() {
     connection->send(message);
     std::string response = connection->receive();
     std::smatch match;
-    /*if (std::regex_match(response, match, std::regex("\\(init\\s+(l|r)\\s+(\\d+)\\s+([\\w\\_]+)\\)"))) {
+    if (std::regex_match(response, match, std::regex("\\(init\\s+(l|r)\\s+(\\d+)\\s+(\\w+)\\)"))) {
         std::string side = match[1].str();
         Body::SIDE = side[0];
         Body::UNIFORM_NUMBER = std::stoi(match[2]);
-    }*/
+    }
     // Receive server parameters
     response = connection->receive();
     Server::handleServerParameters(response);
